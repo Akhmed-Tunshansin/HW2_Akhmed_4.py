@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<form method="POST">
+{% csrf_token %}
+<fieldset>
+    <legend><h1>{{ item.name }}</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {% for purchase in item.purchase_set.all %}
+        <input type="radio" name="purchase" id="purchase{{ forloop.counter }}" value="{{ purchase.id }}">
+        <label for="purchase{{ forloop.counter }}">{{ purchase.name }}</label><br>
+    {% endfor %}
+</fieldset>
+<input type="submit" value="Купить">
+</form>
+</body>
+</html>
